@@ -1,49 +1,22 @@
-#include <iostream>
-#include <string>
-#include <vector>
-
-
-#define MAX_HIGHT 30
-#define SHUFFLE_ID 100
-
-
-void Full_Fill(std::vector<int>& vec) {
-	for (int i = 0; i < MAX_HIGHT; ++i) {
-		vec[i] = i;
-	}
-}
-
-void shuffle(std::vector<int>& vec) {
-	for (int i = 0; i < SHUFFLE_ID; ++i) {
-		int temp;
-
-		int v1 = rand() % MAX_HIGHT;
-		int v2 = rand() % MAX_HIGHT;
-		while(v1 == v2)
-			v2 = rand() % MAX_HIGHT;
-
-		temp = vec[v1];
-		vec[v1] = vec[v2];
-		vec[v2] = temp;
-	}
-}
-
-void display(std::vector<int>& vec) {
-	for (int i = 0; i < MAX_HIGHT; ++i) {
-		for (auto value : vec) {
-			if (value >= MAX_HIGHT - i)
-				std::cout << '|';
-			else
-				std::cout << ' ';
-		}
-		std::cout << std::endl;
-	}
-}
+#include "header.h"
 
 int main() {
 
-	std::vector<int> vec_graph(MAX_HIGHT);
-	Full_Fill(vec_graph);
-	shuffle(vec_graph);
+	//initialisation :
+	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE); //plein écran
+	std::vector<int> vec_graph(MAX_HIGHT);	//vecteur à trier
+	Full_Fill(vec_graph);					//remplissage
+	shuffle(vec_graph, SHUFFLE_ID);			//mélange
+
+	//lancement du thread d'affichage :
+	std::thread th_Display(Repete_Display, std::ref(vec_graph), TIME_BETWEEN_UPDATES);
+
+	//tris :
+	//sort1(vec_graph, 0, vec_graph.size());
+	//sort2(vec_graph);
+	//sort3(vec_graph);
+
+	//fin du process :
+	th_Display.detach();
 	display(vec_graph);
 }
