@@ -1,3 +1,6 @@
+#ifndef HEADER_SORT_H
+#define HEADER_SORT_H
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -5,11 +8,11 @@
 #include <thread>
 #include <windows.h>
 
+#define MAX_HIGHT 49				//dimension du graphique
+#define SHUFFLE_ID 120				//nombre d'intération de mélange
+//#define TIME_BETWEEN_UPDATES 30	//Temps en millisecondes qui s'écoule entre chaque étape de tri.
 
-#define MAX_HIGHT 48				//dimension du graphique
-#define SHUFFLE_ID 45				//nombre d'intération de mélange
-#define TIME_BETWEEN_UPDATES 1000	//Temps en millisecondes qui s'écoule entre chaque étape de tri.
-
+void Set_TIME_BETWEEN_UPDATES(unsigned int value);
 
 /**
  * Remplis le vecteur avec des entiers de 0 à sa taille.
@@ -52,7 +55,7 @@ void pause();
  *
  * \param vec : vecteur à afficher
  */
-void Repete_Display(std::vector<int>& vec, int Time_Between_Display);
+void Repete_Display(std::vector<int>& vec, bool& End);
 
 /**
  * Trie le tableau en prenant chaque emplacement un par un et
@@ -69,5 +72,33 @@ void sort1(std::vector<int>& vec, int from, int to);
  */
 void sort2(std::vector<int>& vec);
 
-/** Tri dans lequel chaque valeur est comprée à sa voisine afin de les echanger */
+/** Tri dans lequel chaque valeur est comprée à sa voisine afin de les echanger!.
+ *
+ * \param vec : vecteur cible
+ */
 void sort3(std::vector<int>& vec);
+
+/**
+ * Trie de droite à gauche le tableau.
+ *
+ * \param vec : vecteur cible
+ */
+void TriBulle(std::vector<int>& vec);
+
+/**
+ * Fonction appelée par Quick_sort() qui interchange les valeurs
+ *
+ * \param vec :		vecteur cible
+ * \param debut :	borne inférieure
+ * \param fin :		borne suppérieure
+ */
+int Quick_place(std::vector<int>& vec, int debut, int fin);
+
+/**
+ * Trie de tableau tres optimisé
+ *
+ * \param vec : vecteur cible
+ */
+void Quick_Sort(std::vector<int>& vec);
+
+#endif
