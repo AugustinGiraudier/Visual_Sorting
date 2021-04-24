@@ -18,6 +18,7 @@ int main() {
 	//initialisation :
 	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE); //plein écran
 	std::vector<int> vec_graph(MAX_HIGHT);	//vecteur à trier
+	Full_Fill(vec_graph);
 
 	while (true) {
 		system("CLS");
@@ -33,6 +34,7 @@ int main() {
 			<< "4 - Droite a gauche\n"
 			<< "5 - Tri Bulle\n"
 			<< "6 - Quick_Sort\n\n"
+
 			<< "************************************************\n"
 			<< "Votre choix : ";
 
@@ -60,8 +62,7 @@ int main() {
 			exit(EXIT_FAILURE);
 		}
 
-		//intitialisation du tour :
-		Full_Fill(vec_graph);					//remplissage
+		//intitialisation du tour :				//remplissage
 		shuffle(vec_graph, SHUFFLE_ID);			//mélange
 		bool EndOfProg = false;					//lien avec le thread d'affichage
 
